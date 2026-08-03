@@ -51,7 +51,7 @@ Use `python src/pipeline.py --live` to request current notices from the official
 - Total and inflation-adjusted awarded value
 - Buyer and supplier market share
 - Herfindahl-Hirschman Index (HHI) for supplier concentration
-- Single-bid proxy and award-size anomaly flags
+- Award-size anomaly flags
 - Supplier dependency by dominant buyer
 - Composite procurement risk score (0–100)
 
@@ -77,4 +77,3 @@ tests/           Unit tests for core calculations
 ## Engineering quality
 
 The pipeline is idempotent, validates required fields, uses parameterised execution, and separates raw, staging, dimensional, and mart layers. CI runs syntax validation and unit tests on every push and pull request.
-
