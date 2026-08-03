@@ -26,6 +26,17 @@ CREATE OR REPLACE TABLE dim_category AS
 SELECT row_number() OVER (ORDER BY category_code) AS category_sk, category_code, category_name
 FROM (SELECT DISTINCT category_code, category_name FROM stg_awards);
 
+CREATE OR REPLACE TABLE dim_date AS
+SELECT DISTINCT award_date AS date_key,
+       year(award_date) AS calendar_year,
+       month(award_date) AS calendar_month,
+       CASE WHEN month(award_date) >= 4 THEN year(award_date) ELSE year(award_date) - 1 END AS fiscal_year_start
+FROM stg_awards WHERE award_date IS NOT NULL;
+
+CREATE OR REPLACE TABLE dim_inflation AS
+SELECT CAST(month AS DATE) AS month, CAST(cpih_index AS DECIMAL(10,3)) AS cpih_index
+FROM inflation_input;
+
 CREATE OR REPLACE TABLE fact_award AS
 SELECT
     s.ocid, s.award_id, s.award_date, b.buyer_sk, p.supplier_sk, c.category_sk,
@@ -62,12 +73,17 @@ FROM supplier_stats s JOIN dim_supplier d USING (supplier_sk)
 JOIN buyer_dependency b USING (supplier_sk) CROSS JOIN market m;
 
 CREATE OR REPLACE VIEW mart_monthly_spend AS
-SELECT date_trunc('month', award_date)::DATE AS award_month,
-       count(*) AS award_count, sum(award_value) AS awarded_value
-FROM fact_award GROUP BY 1 ORDER BY 1;
+WITH monthly AS (
+    SELECT date_trunc('month', award_date)::DATE AS award_month,
+           count(*) AS award_count, sum(award_value) AS awarded_value
+    FROM fact_award GROUP BY 1
+), latest_index AS (SELECT max(cpih_index) AS cpih_index FROM dim_inflation)
+SELECT m.*, i.cpih_index,
+       round(m.awarded_value * l.cpih_index / i.cpih_index, 2) AS real_awarded_value_latest_prices
+FROM monthly m JOIN dim_inflation i ON m.award_month = i.month
+CROSS JOIN latest_index l ORDER BY m.award_month;
 
 CREATE OR REPLACE VIEW quality_failures AS
 SELECT * FROM stg_awards
 WHERE award_id IS NULL OR buyer_name IS NULL OR supplier_name IS NULL
    OR award_value IS NULL OR award_value < 0;
-
