@@ -1,0 +1,11 @@
+{
+  "releases": [
+    {"ocid":"ocds-uk-001","buyer":{"id":"B1","name":"Northshire Council"},"tender":{"title":"Cloud data platform","items":[{"classification":{"id":"72000000","description":"IT services"}}]},"awards":[{"id":"A1","date":"2025-01-15","value":{"amount":1250000,"currency":"GBP"},"suppliers":[{"id":"S1","name":"DataWorks UK Ltd"}]}]},
+    {"ocid":"ocds-uk-002","buyer":{"id":"B2","name":"Central Health Trust"},"tender":{"title":"Analytics support","items":[{"classification":{"id":"72000000","description":"IT services"}}]},"awards":[{"id":"A2","date":"2025-02-10","value":{"amount":480000,"currency":"GBP"},"suppliers":[{"id":"S1","name":"DataWorks UK Ltd"}]}]},
+    {"ocid":"ocds-uk-003","buyer":{"id":"B1","name":"Northshire Council"},"tender":{"title":"Fleet maintenance","items":[{"classification":{"id":"50100000","description":"Vehicle repair services"}}]},"awards":[{"id":"A3","date":"2025-03-04","value":{"amount":310000,"currency":"GBP"},"suppliers":[{"id":"S2","name":"TransitCare Plc"}]}]},
+    {"ocid":"ocds-uk-004","buyer":{"id":"B3","name":"Westborough University"},"tender":{"title":"ERP transformation","items":[{"classification":{"id":"72000000","description":"IT services"}}]},"awards":[{"id":"A4","date":"2025-04-21","value":{"amount":8900000,"currency":"GBP"},"suppliers":[{"id":"S3","name":"Enterprise Systems Group"}]}]},
+    {"ocid":"ocds-uk-005","buyer":{"id":"B2","name":"Central Health Trust"},"tender":{"title":"Facilities management","items":[{"classification":{"id":"79993000","description":"Building management services"}}]},"awards":[{"id":"A5","date":"2025-05-08","value":{"amount":675000,"currency":"GBP"},"suppliers":[{"id":"S4","name":"Civic Facilities Ltd"}]}]},
+    {"ocid":"ocds-uk-006","buyer":{"id":"B1","name":"Northshire Council"},"tender":{"title":"Cyber security monitoring","items":[{"classification":{"id":"72000000","description":"IT services"}}]},"awards":[{"id":"A6","date":"2025-06-19","value":{"amount":720000,"currency":"GBP"},"suppliers":[{"id":"S1","name":"DataWorks UK Ltd"}]}]}
+  ]
+}
+
